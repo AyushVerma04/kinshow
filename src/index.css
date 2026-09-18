@@ -830,6 +830,16 @@ ul, ol { list-style: none; }
 
 @media (max-width: 600px) { .watchlist-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 0 16px; } }
 
+.watchlist-item {
+  animation: watchlistIn 0.2s var(--ease);
+}
+
+.watchlist-item--removing {
+  opacity: 0;
+  transform: scale(0.85) translateY(12px) rotate(-3deg);
+
+  transition: all 0.3s ease;
+}
 /* ─── PROFILE ─────────────────────────────── */
 .profile-header {
   display: flex; align-items: center; gap: 20px;
@@ -943,6 +953,12 @@ ul, ol { list-style: none; }
 .skeleton-line--year { width: 30%; }
 
 /* ─── ANIMATIONS ──────────────────────────── */
+
+@keyframes watchlistIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 

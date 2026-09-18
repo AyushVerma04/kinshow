@@ -10,12 +10,21 @@ export default function Watchlist() {
   const toast = useToast();
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('recent');
+  const [removingId, setRemovingId] = useState(null);
 
   const filtered = list
     .filter(i => filter === 'all' || i.type === filter)
     .sort((a, b) => sort === 'title' ? (a.title || '').localeCompare(b.title || '') : (b.added || 0) - (a.added || 0));
 
-  const removeItem = (item) => { remove(item.id); toast(`${item.title} removed from My List`); };
+  const removeItem = (item) => {
+    setRemovingId(item.id);
+    setTimeout(() => {
+
+    remove(item.id); toast(`${item.title} removed from My List`);
+    setRemovingId(null);
+
+  }, 300);
+};
 
   if (list.length === 0) {
     return (
@@ -50,8 +59,10 @@ export default function Watchlist() {
       <div className="watchlist-grid">
         {filtered.map(item => {
           const type = item.type || item.media_type || 'movie';
+          const isRemoving = removingId === item.id;
           return (
-            <Link key={item.id} to={`/detail/${type}/${item.id}`} className="watchlist-item">
+
+            <Link key={item.id} to={`/detail/${type}/${item.id}`} className={`watchlist-item ${isRemoving ? 'watchlist-item--removing' : ''}`} >
               <div className="watchlist-poster">
                 <PosterImg src={item.poster_path} title={item.title} idx={item.title?.charCodeAt(0)} className="watchlist-poster-img" alt={item.title} />
               </div>
