@@ -36,6 +36,18 @@ export default function Detail() {
     );
   };
 
+  const handleCastKeydown = (e) => {
+    const el = castScrollRef.current;
+    if (!el) return;
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      el.scrollBy({ left: -100, behavior: 'smooth' });
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      el.scrollBy({ left: 100, behavior: 'smooth' });
+    };
+  };
+    
   useEffect(() => {
     const el = castScrollRef.current;
     if (!el) return;
@@ -202,7 +214,7 @@ export default function Detail() {
             {showCastLeftFade && (
               <div className="cast-scroll-fade cast-scroll-fade--left" />
             )}
-            <div ref={castScrollRef} className="cast-scroll">
+            <div ref={castScrollRef} className="cast-scroll" tabIndex={0} role="list" onKeyDown={handleCastKeydown}>
               {data.cast.slice(0, 12).map((p, i) => (
                 <CastCard key={i} person={p} />
               ))}
