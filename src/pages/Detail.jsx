@@ -9,6 +9,7 @@ import { SkeletonDetail } from '../components/Skeletons';
 import { PosterImg, makePoster } from '../utils/poster';
 import { SEO, StructuredData, movieSchema, tvSchema, breadcrumbSchema } from '../components/SEO';
 import { addRecent } from '../utils/cookies';
+import EmptyState from '../components/EmptyState';
 
 export default function Detail() {
   const { type, id } = useParams();
@@ -105,7 +106,12 @@ export default function Detail() {
   }, [data?.tvmazeId, data?.imdbID, seasonNum, type, id]);
 
   if (loading) return <main className="page detail"><SkeletonDetail /></main>;
-  if (!data) return <main className="page detail"><div className="empty-state"><h3>Not found</h3><p>This title could not be loaded.</p><Link to="/" className="btn btn--secondary">Go Home</Link></div></main>;
+  if (!data) return <main className="page detail"><div className="empty-state">
+   <EmptyState 
+  title="No Results Found"
+  description="We couldn't find the data you were looking for."
+  action={<Link to="/" className="btn btn--secondary">Go Home</Link>}
+/></div></main>;
 
   const title = t(data);
   const imdbId = data.imdbID || null;

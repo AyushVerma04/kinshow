@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { SEO, StructuredData, breadcrumbSchema } from '../components/SEO';
 import { getBlogPost, getBlogPosts } from '../blogData';
-
+import EmptyState from '../components/EmptyState';
 export default function BlogPost() {
   const { slug } = useParams();
   const post = getBlogPost(slug);
@@ -10,9 +10,11 @@ export default function BlogPost() {
     return (
       <main className="page">
         <div className="empty-state">
-          <h3>Article not found</h3>
-          <p>This blog post could not be found.</p>
-          <Link to="/blog" className="btn btn--secondary">Back to Blog</Link>
+        <EmptyState 
+  title="No Results Found"
+  description="We couldn't find the data you were looking for."
+  action={<Link to="/blog" className="btn btn--secondary">Back to Blog</Link>}
+/>
         </div>
       </main>
     );
