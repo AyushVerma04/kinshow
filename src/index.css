@@ -809,6 +809,7 @@ ul, ol { list-style: none; }
   background: var(--surface); border: 1px solid var(--border);
   position: relative;
   transition: border-color var(--duration) var(--ease), background var(--duration) var(--ease);
+  animation: watchlistIn 0.2s var(--ease);
 }
 .watchlist-item:hover { border-color: var(--border-strong); background: var(--surface-hover); }
 .watchlist-poster { width: 100%; aspect-ratio: 2/3; border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-raised); }
@@ -830,15 +831,12 @@ ul, ol { list-style: none; }
 
 @media (max-width: 600px) { .watchlist-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 0 16px; } }
 
-.watchlist-item {
-  animation: watchlistIn 0.2s var(--ease);
-}
+
 
 .watchlist-item--removing {
   opacity: 0;
-  transform: scale(0.85) translateY(12px) rotate(-3deg);
-
-  transition: all 0.3s ease;
+  transform: scale(0.92) translateY(8px);
+  transition: all 0.3s var(--ease);
 }
 /* ─── PROFILE ─────────────────────────────── */
 .profile-header {
