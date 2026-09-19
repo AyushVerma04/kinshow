@@ -725,7 +725,7 @@ ul, ol { list-style: none; }
 .ep-card-header { display: flex; align-items: baseline; gap: 8px; }
 .ep-card-num { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
 .ep-card-title { font-size: 14px; font-weight: 500; transition: color var(--duration) var(--ease); }
-.ep-card:hover .ep-card-title { color: #fff; }
+.ep-card:hover .ep-card-title { color: var(--text); }
 .ep-card-date, .ep-card-runtime, .ep-card-rating { font-size: 12px; color: var(--text-muted); }
 .ep-card-rating { color: var(--gold); font-weight: 600; }
 .ep-card-meta { display: flex; gap: 12px; }
