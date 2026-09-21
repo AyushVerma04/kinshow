@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { tvmazeSearch, MOVIES } from '../api';
 import MediaCard from '../components/MediaCard';
+import EmptyState from '../components/EmptyState';
 import { SkeletonCards } from '../components/Skeletons';
 import { SEO, StructuredData, breadcrumbSchema } from '../components/SEO';
 
@@ -49,6 +50,11 @@ export default function Explore() {
     }
   }, [selectedGenre]);
 
+  const noResultsFound = !movieItems.loading && !tvItems.loading
+    && movieItems.items.length === 0 && tvItems.items.length === 0;
+  const movieHeading = selectedGenre ? `${selectedGenre} Movies` : 'Popular Films';
+  const tvHeading = selectedGenre ? `${selectedGenre} TV Shows` : 'Popular Series';
+
   return (
     <main className="page">
       <SEO title="Explore" description="Explore movies and TV shows by genre. Find Action, Comedy, Drama, Horror, Sci-Fi, Thriller, and more. Discover your next favorite title on Kinshow." url="https://kinshow.vercel.app/explore" />
@@ -70,17 +76,28 @@ export default function Explore() {
         </div>
       </section>
       <section className="detail-section">
-        <h2 className="detail-section-title">{selectedGenre ? `${selectedGenre} Movies` : 'Popular Films'}</h2>
+        <h2 className="detail-section-title">
+          {movieHeading}{!movieItems.loading && ` (${movieItems.items.length})`}
+        </h2>
         <div className="grid">
-          {movieItems.loading ? <SkeletonCards count={8} /> : movieItems.items.length > 0 ? movieItems.items.map((item, i) => <MediaCard key={i} item={item} mediaType="movie" />) : <p style={{color: 'var(--text-muted)', gridColumn: '1/-1'}}>No movies found for this genre</p>}
+          {movieItems.loading ? <SkeletonCards count={8} /> : movieItems.items.length > 0 ? movieItems.items.map((item, i) => <MediaCard key={i} item={item} mediaType="movie" />) : !noResultsFound && <p style={{color: 'var(--text-muted)', gridColumn: '1/-1'}}>No movies found for this genre</p>}
         </div>
       </section>
+      <div className="explore-divider" aria-hidden="true" />
       <section className="detail-section">
-        <h2 className="detail-section-title">{selectedGenre ? `${selectedGenre} TV Shows` : 'Popular Series'}</h2>
+        <h2 className="detail-section-title">
+          {tvHeading}{!tvItems.loading && ` (${tvItems.items.length})`}
+        </h2>
         <div className="grid">
-          {tvItems.loading ? <SkeletonCards count={8} /> : tvItems.items.length > 0 ? tvItems.items.map((item, i) => <MediaCard key={i} item={item} mediaType="tv" />) : <p style={{color: 'var(--text-muted)', gridColumn: '1/-1'}}>No shows found for this genre</p>}
+          {tvItems.loading ? <SkeletonCards count={8} /> : tvItems.items.length > 0 ? tvItems.items.map((item, i) => <MediaCard key={i} item={item} mediaType="tv" />) : !noResultsFound && <p style={{color: 'var(--text-muted)', gridColumn: '1/-1'}}>No shows found for this genre</p>}
         </div>
       </section>
+      {noResultsFound && (
+        <EmptyState
+          title="No results"
+          description="No movies or TV shows were found. Try another genre or check back later."
+        />
+      )}
     </main>
   );
 }
