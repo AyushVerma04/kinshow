@@ -929,6 +929,7 @@ ul, ol { list-style: none; }
 
 /* ─── EXPLORE PAGE ────────────────────────── */
 .explore-section { max-width: 1400px; margin: 0 auto; padding: 0 24px 32px; }
+.explore-divider { width: calc(100% - 48px); max-width: 1352px; margin: 0 auto; border-top: 1px solid var(--border); }
 .explore-heading { font-size: 16px; font-weight: 600; margin-bottom: 14px; letter-spacing: -0.01em; }
 .explore-grid { display: flex; gap: 8px; flex-wrap: wrap; }
 .genre-chip {
