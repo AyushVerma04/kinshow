@@ -1232,3 +1232,33 @@ ul, ol { list-style: none; }
   .blog-grid { grid-template-columns: 1fr; padding: 0 16px; }
   .blog-card--small { max-width: 100%; }
 }
+
+/* Page Transition Loader */
+.page-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+  z-index: 9999;
+  opacity: 0.9; 
+}
+
+.page-loader-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: page-spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes page-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
