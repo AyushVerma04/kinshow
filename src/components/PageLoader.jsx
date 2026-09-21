@@ -7,19 +7,14 @@ export default function PageLoader() {
 
   useEffect(() => {
     setIsLoading(true);
-    // Artificially keep it loading for a brief moment to show the transition
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 400); 
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [pathname]);
 
   if (!isLoading) return null;
 
-  return (
-    <div className="page-loader-overlay">
-      <div className="page-loader-spinner"></div>
-    </div>
-  );
+  return <div className="top-progress-bar" />;
 }
